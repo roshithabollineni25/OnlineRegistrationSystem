@@ -551,7 +551,7 @@ function App() {
         <div className="auth-hero-pane">
           <div className="auth-hero-brand">
             <div className="auth-hero-crest">
-              <GraduationCap size={24} />
+              <GraduationCap size={28} />
             </div>
             <div className="auth-hero-brand-copy">
               <strong>Northstar Academic ERP</strong>
@@ -561,7 +561,7 @@ function App() {
 
           <div className="auth-hero-content">
             <div className="auth-hero-pill">
-              <Award size={14} /> Official Academic Session 2026–2027
+              <Award size={16} /> Official Academic Session 2026–2027
             </div>
             <h1 className="auth-hero-title">Academic Governance & Course Enrollment</h1>
             <p className="auth-hero-desc">
@@ -571,19 +571,19 @@ function App() {
 
             <div className="auth-hero-features">
               <div className="auth-hero-feature-item">
-                <Check size={16} />
+                <Check size={18} />
                 <span>Strict branch, degree, and semester eligibility enforcement</span>
               </div>
               <div className="auth-hero-feature-item">
-                <Check size={16} />
+                <Check size={18} />
                 <span>Transparent branch-wise seat quotas with real-time capacity</span>
               </div>
               <div className="auth-hero-feature-item">
-                <Check size={16} />
+                <Check size={18} />
                 <span>Formal administrative enrollment approvals & drop review workflows</span>
               </div>
               <div className="auth-hero-feature-item">
-                <Check size={16} />
+                <Check size={18} />
                 <span>Automated curriculum credit analysis & complete student reports</span>
               </div>
             </div>
@@ -596,7 +596,7 @@ function App() {
 
         {/* Right Form Pane */}
         <div className="auth-form-pane">
-          <div className="auth-card">
+          <div className={`auth-card ${authMode === 'register' ? 'register-mode' : 'login-mode'}`}>
             <div className="auth-card-header">
               <h2>{authRole === 'admin' ? 'Administrator Workspace' : 'Student Academic Portal'}</h2>
               <p className="page-subtitle">
@@ -860,7 +860,7 @@ function App() {
             {/* Quick Demo Credentials */}
             <div className="demo-credentials-box">
               <strong>Institutional Evaluation Accounts</strong>
-              <p style={{ marginTop: '2px', fontSize: '0.6875rem', color: 'var(--text-tertiary)' }}>
+              <p style={{ marginTop: '4px', fontSize: '0.8125rem', color: 'var(--text-tertiary)' }}>
                 Click any pre-configured student or administrator account to test branch rules:
               </p>
               <div className="demo-chips">
