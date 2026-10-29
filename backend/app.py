@@ -462,8 +462,8 @@ def student_register():
     email = str(data.get("email", "")).strip().lower()
     password = str(data.get("password", "")).strip()
     confirm_password = str(data.get("confirm_password", "")).strip()
-    student_reg_no = str(data.get("student_reg_no", "")).strip().upper()
     college_reg_no = str(data.get("college_reg_no", "")).strip().upper()
+    student_reg_no = college_reg_no
     degree_code = str(data.get("degree_code", "")).strip()
     department_code = str(data.get("department_code", "")).strip().upper()
     academic_year = int(data.get("academic_year", 0))
@@ -479,8 +479,8 @@ def student_register():
         return jsonify({"error": "Password must be at least 6 characters long."}), 400
     if password != confirm_password:
         return jsonify({"error": "Password and confirmation password do not match."}), 400
-    if not student_reg_no or not college_reg_no:
-        return jsonify({"error": "Student registration number and college registration number are both required."}), 400
+    if not college_reg_no:
+        return jsonify({"error": "College registration number is required."}), 400
 
     with connect() as con:
         # Validate degree and department exist
@@ -505,8 +505,6 @@ def student_register():
         # Check unique constraints
         if con.execute("SELECT id FROM students WHERE lower(email) = ?", (email,)).fetchone():
             return jsonify({"error": "A student account with this email address already exists."}), 409
-        if con.execute("SELECT id FROM students WHERE student_reg_no = ?", (student_reg_no,)).fetchone():
-            return jsonify({"error": f"Student registration number '{student_reg_no}' is already registered."}), 409
         if con.execute("SELECT id FROM students WHERE college_reg_no = ?", (college_reg_no,)).fetchone():
             return jsonify({"error": f"College registration number '{college_reg_no}' is already registered."}), 409
 

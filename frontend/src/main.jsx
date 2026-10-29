@@ -709,17 +709,6 @@ function App() {
 
                   <div className="form-row-2">
                     <div className="form-group">
-                      <label className="form-label">Student Registration Number</label>
-                      <input
-                        type="text"
-                        required
-                        className="form-control"
-                        placeholder="e.g. STU2026CSE05"
-                        value={authForm.student_reg_no}
-                        onChange={e => setAuthForm({ ...authForm, student_reg_no: e.target.value })}
-                      />
-                    </div>
-                    <div className="form-group">
                       <label className="form-label">College Registration Number</label>
                       <input
                         type="text"
