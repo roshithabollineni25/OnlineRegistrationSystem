@@ -468,7 +468,7 @@ def student_register():
     department_code = str(data.get("department_code", "")).strip().upper()
     academic_year = int(data.get("academic_year", 0))
     semester = int(data.get("semester", 0))
-    section = str(data.get("section", "A")).strip().upper()
+    section = str(data.get("section", "3")).strip().upper()
 
     # Validations
     if len(name) < 2:

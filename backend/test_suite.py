@@ -55,7 +55,7 @@ def run_tests():
         "department_code": "CSE",
         "academic_year": 2,
         "semester": 4,
-        "section": "A"
+        "section": "1"
     }
     # Clear previous test record if exists
     with connect() as con:

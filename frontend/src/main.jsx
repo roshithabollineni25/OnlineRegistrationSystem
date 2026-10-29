@@ -84,7 +84,7 @@ function App() {
     department_code: 'CSE',
     academic_year: 2,
     semester: 4,
-    section: 'A'
+    section: '3'
   });
 
   // Data states
@@ -159,7 +159,7 @@ function App() {
     let data = {};
     try {
       data = await response.json();
-    } catch {}
+    } catch { }
 
     if (!response.ok) {
       if (response.status === 401 && !endpoint.includes('/login') && !endpoint.includes('/register')) {
@@ -181,7 +181,7 @@ function App() {
       if (config.departments?.length > 0 && !authForm.department_code) {
         setAuthForm(prev => ({ ...prev, department_code: config.departments[0].code }));
       }
-    } catch {}
+    } catch { }
   }
 
   // Load main application data
@@ -200,7 +200,7 @@ function App() {
           const notesRes = await apiCall('/notifications');
           setNotifications(notesRes.notifications || []);
           setUnreadCount(notesRes.unread_count || 0);
-        } catch {}
+        } catch { }
 
         if (role === 'student') {
           const [myRegs, myDrops, profile] = await Promise.all([
@@ -308,7 +308,7 @@ function App() {
   const handleSignOut = async () => {
     try {
       await apiCall('/logout', { method: 'POST' });
-    } catch {}
+    } catch { }
     localStorage.removeItem('ocr_token');
     localStorage.removeItem('ocr_role');
     localStorage.removeItem('ocr_user');
@@ -485,7 +485,7 @@ function App() {
       await apiCall('/notifications/read-all', { method: 'PATCH' });
       setNotifications(prev => prev.map(n => ({ ...n, is_read: 1 })));
       setUnreadCount(0);
-    } catch {}
+    } catch { }
   };
 
   // Filtered Course Catalog
@@ -505,35 +505,35 @@ function App() {
   const navItems =
     role === 'admin'
       ? [
-          { id: 'admin-overview', label: 'Administration Overview', icon: Building2 },
-          { id: 'admin-courses', label: 'Course Management', icon: BookOpen },
-          { id: 'admin-allocations', label: 'Course Allocations', icon: Layers },
-          {
-            id: 'admin-approvals',
-            label: 'Enrollment Approvals',
-            icon: CheckCheck,
-            badge: summary.pending_registrations
-          },
-          {
-            id: 'admin-drops',
-            label: 'Drop Requests Queue',
-            icon: RotateCcw,
-            badge: summary.pending_drops
-          },
-          { id: 'admin-students', label: 'Student Directory', icon: Users },
-          { id: 'admin-audit', label: 'System Audit Logs', icon: History }
-        ]
+        { id: 'admin-overview', label: 'Administration Overview', icon: Building2 },
+        { id: 'admin-courses', label: 'Course Management', icon: BookOpen },
+        { id: 'admin-allocations', label: 'Course Allocations', icon: Layers },
+        {
+          id: 'admin-approvals',
+          label: 'Enrollment Approvals',
+          icon: CheckCheck,
+          badge: summary.pending_registrations
+        },
+        {
+          id: 'admin-drops',
+          label: 'Drop Requests Queue',
+          icon: RotateCcw,
+          badge: summary.pending_drops
+        },
+        { id: 'admin-students', label: 'Student Directory', icon: Users },
+        { id: 'admin-audit', label: 'System Audit Logs', icon: History }
+      ]
       : [
-          { id: 'student-overview', label: 'Academic Overview', icon: GraduationCap },
-          { id: 'student-catalog', label: 'Course Catalogue', icon: BookOpen },
-          {
-            id: 'student-my-courses',
-            label: 'My Registrations',
-            icon: CheckCircle2,
-            badge: registrations.filter(r => r.status === 'Approved' || r.status === 'Pending').length
-          },
-          { id: 'student-profile', label: 'Student Profile', icon: User }
-        ];
+        { id: 'student-overview', label: 'Academic Overview', icon: GraduationCap },
+        { id: 'student-catalog', label: 'Course Catalogue', icon: BookOpen },
+        {
+          id: 'student-my-courses',
+          label: 'My Registrations',
+          icon: CheckCircle2,
+          badge: registrations.filter(r => r.status === 'Approved' || r.status === 'Pending').length
+        },
+        { id: 'student-profile', label: 'Student Profile', icon: User }
+      ];
 
   // Dynamic Semesters for Registration Form
   const availableSemesters = useMemo(() => {
@@ -793,28 +793,11 @@ function App() {
                         value={authForm.section}
                         onChange={e => setAuthForm({ ...authForm, section: e.target.value })}
                       >
-                        <option value="A">1</option>
-                        <option value="B">2</option>
-                        <option value="C">3</option>
-                        <option value="C">4</option>
-                        <option value="C">5</option>
-                        <option value="C">6</option>
-                        <option value="C">7</option>
-                        <option value="C">8</option>
-                        <option value="C">9</option>
-                        <option value="C">10</option>
-                        <option value="C">11</option>
-                        <option value="C">12</option>
-                        <option value="C">13</option>
-                        <option value="C">14</option>
-                        <option value="C">15</option>
-                        <option value="C">16</option>
-                        <option value="C">17</option>
-                        <option value="C">18</option>
-                        <option value="C">19</option>
-                        <option value="C">20</option>
-                        <option value="C">21</option>
-                        <option value="C">22</option>
+                        {Array.from({ length: 22 }, (_, i) => (
+                          <option key={i + 1} value={String(i + 1)}>
+                            {i + 1}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -860,8 +843,8 @@ function App() {
                 {isSubmitting
                   ? 'Processing…'
                   : authMode === 'login'
-                  ? `Sign In to ${authRole === 'admin' ? 'Administrator Portal' : 'Student Portal'}`
-                  : 'Submit Registration Profile'}
+                    ? `Sign In to ${authRole === 'admin' ? 'Administrator Portal' : 'Student Portal'}`
+                    : 'Submit Registration Profile'}
               </button>
             </form>
 
@@ -2759,8 +2742,8 @@ function App() {
                   {detailModalCourse.registration_status === 'Approved'
                     ? 'Already Enrolled'
                     : detailModalCourse.registration_status === 'Pending'
-                    ? 'Request Pending'
-                    : 'Submit Enrollment Request'}
+                      ? 'Request Pending'
+                      : 'Submit Enrollment Request'}
                 </button>
               )}
             </div>
@@ -2890,9 +2873,8 @@ function App() {
                         </td>
                         <td>
                           <span
-                            className={`badge ${
-                              st.status === 'Approved' ? 'badge-approved' : 'badge-pending'
-                            }`}
+                            className={`badge ${st.status === 'Approved' ? 'badge-approved' : 'badge-pending'
+                              }`}
                           >
                             {st.status}
                           </span>
