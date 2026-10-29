@@ -804,9 +804,28 @@ function App() {
                         value={authForm.section}
                         onChange={e => setAuthForm({ ...authForm, section: e.target.value })}
                       >
-                        <option value="A">Section A</option>
-                        <option value="B">Section B</option>
-                        <option value="C">Section C</option>
+                        <option value="A">1</option>
+                        <option value="B">2</option>
+                        <option value="C">3</option>
+                        <option value="C">4</option>
+                        <option value="C">5</option>
+                        <option value="C">6</option>
+                        <option value="C">7</option>
+                        <option value="C">8</option>
+                        <option value="C">9</option>
+                        <option value="C">10</option>
+                        <option value="C">11</option>
+                        <option value="C">12</option>
+                        <option value="C">13</option>
+                        <option value="C">14</option>
+                        <option value="C">15</option>
+                        <option value="C">16</option>
+                        <option value="C">17</option>
+                        <option value="C">18</option>
+                        <option value="C">19</option>
+                        <option value="C">20</option>
+                        <option value="C">21</option>
+                        <option value="C">22</option>
                       </select>
                     </div>
                   </div>
