@@ -692,17 +692,24 @@ def compute_course_details(con, course_row, student_info=None):
 
     # Branch allocations list
     allocations = con.execute(
-        """SELECT ba.department_code, ba.allocated_seats, d.name AS department_name,
-                  COUNT(CASE WHEN r.status = 'Approved' THEN 1 END) AS branch_confirmed,
-                  COUNT(CASE WHEN r.status = 'Pending' THEN 1 END) AS branch_pending
-           FROM branch_allocations ba
-           LEFT JOIN departments d ON d.code = ba.department_code
-           LEFT JOIN registrations r ON r.course_id = ba.course_id
-           LEFT JOIN students s ON s.id = r.student_id AND s.department_code = ba.department_code
-           WHERE ba.course_id = ?
-           GROUP BY ba.department_code""",
-        (cid,)
-    ).fetchall()
+    """SELECT
+           ba.department_code,
+           ba.allocated_seats,
+           d.name AS department_name,
+           COUNT(CASE WHEN r.status = 'Approved' THEN 1 END) AS branch_confirmed,
+           COUNT(CASE WHEN r.status = 'Pending' THEN 1 END) AS branch_pending
+       FROM branch_allocations ba
+       LEFT JOIN departments d
+           ON d.code = ba.department_code
+       LEFT JOIN registrations r
+           ON r.course_id = ba.course_id
+       LEFT JOIN students s
+           ON s.id = r.student_id
+           AND s.department_code = ba.department_code
+       WHERE ba.course_id = ?
+       GROUP BY ba.department_code, ba.allocated_seats, d.name""",
+    (cid,)
+).fetchall()
 
     course["branch_allocations"] = []
     for a in allocations:
